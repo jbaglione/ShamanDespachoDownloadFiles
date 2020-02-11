@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s0="http://tempuri.org" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org">
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pUsrExtId" type="s:long" />
+            <s:element minOccurs="0" name="pOld" type="s:string" />
+            <s:element minOccurs="0" name="pNew" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="ChangePasswordResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataSet">
+        <s:sequence>
+          <s:element ref="s:schema" />
+          <s:any />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ForgotPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pIde" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForgotPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="ForgotPasswordResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlertas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pUsrExtId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlertasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="GetAlertasResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSenders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pApl" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSendersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="GetSendersResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pIde" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="GetSessionDataResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pIde" type="s:string" />
+            <s:element minOccurs="0" name="pPsw" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="LoginResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginMobileGerencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pIde" type="s:string" />
+            <s:element minOccurs="0" name="pPsw" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginMobileGerencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="LoginMobileGerencialResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPersonals">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pUsrExtId" type="s:long" />
+            <s:element minOccurs="0" name="pEmail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPersonalsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="SetPersonalsResult" type="s0:DataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="s0:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="s0:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapIn">
+    <wsdl:part name="parameters" element="s0:ForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapOut">
+    <wsdl:part name="parameters" element="s0:ForgotPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlertasSoapIn">
+    <wsdl:part name="parameters" element="s0:GetAlertas" />
+  </wsdl:message>
+  <wsdl:message name="GetAlertasSoapOut">
+    <wsdl:part name="parameters" element="s0:GetAlertasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSendersSoapIn">
+    <wsdl:part name="parameters" element="s0:GetSenders" />
+  </wsdl:message>
+  <wsdl:message name="GetSendersSoapOut">
+    <wsdl:part name="parameters" element="s0:GetSendersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionDataSoapIn">
+    <wsdl:part name="parameters" element="s0:GetSessionData" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionDataSoapOut">
+    <wsdl:part name="parameters" element="s0:GetSessionDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="s0:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="s0:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginMobileGerencialSoapIn">
+    <wsdl:part name="parameters" element="s0:LoginMobileGerencial" />
+  </wsdl:message>
+  <wsdl:message name="LoginMobileGerencialSoapOut">
+    <wsdl:part name="parameters" element="s0:LoginMobileGerencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPersonalsSoapIn">
+    <wsdl:part name="parameters" element="s0:SetPersonals" />
+  </wsdl:message>
+  <wsdl:message name="SetPersonalsSoapOut">
+    <wsdl:part name="parameters" element="s0:SetPersonalsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebAppsSoap">
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input message="s0:ChangePasswordSoapIn" />
+      <wsdl:output message="s0:ChangePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <wsdl:input message="s0:ForgotPasswordSoapIn" />
+      <wsdl:output message="s0:ForgotPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertas">
+      <wsdl:input message="s0:GetAlertasSoapIn" />
+      <wsdl:output message="s0:GetAlertasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSenders">
+      <wsdl:input message="s0:GetSendersSoapIn" />
+      <wsdl:output message="s0:GetSendersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionData">
+      <wsdl:input message="s0:GetSessionDataSoapIn" />
+      <wsdl:output message="s0:GetSessionDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="s0:LoginSoapIn" />
+      <wsdl:output message="s0:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginMobileGerencial">
+      <wsdl:input message="s0:LoginMobileGerencialSoapIn" />
+      <wsdl:output message="s0:LoginMobileGerencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPersonals">
+      <wsdl:input message="s0:SetPersonalsSoapIn" />
+      <wsdl:output message="s0:SetPersonalsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebAppsSoap" type="s0:WebAppsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.ChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.ForgotPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertas">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.GetAlertas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSenders">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.GetSenders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionData">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.GetSessionData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginMobileGerencial">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.LoginMobileGerencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPersonals">
+      <soap:operation soapAction="http://tempuri.org/WebServices.WebApps.SetPersonals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebApps">
+    <wsdl:port name="WebAppsSoap" binding="s0:WebAppsSoap">
+      <soap:address location="http://paramedicapps.com.ar:57772/csp/shaman/WebServices.WebApps.cls" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

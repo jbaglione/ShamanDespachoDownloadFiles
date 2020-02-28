@@ -65,7 +65,7 @@ namespace ShamanDespachoDownloadFilesWinForm
 
         public void DownladFile()
         {
-            string queryString = "SELECT inc.id, inc.Url, clf.RutaRemota + '\' + CAST(inc.IncidenteId as varchar) + '_' + cast(inc.ID as varchar) + '.' + ";
+            string queryString = "SELECT inc.id, inc.Url, clf.RutaRemota + '\\' + CAST(inc.IncidenteId as varchar) + '_' + cast(inc.ID as varchar) + '.' + ";
             queryString += "SUBSTRING( RIGHT(inc.Url, 4), CHARINDEX('.', RIGHT(inc.Url, 4)) + 1, LEN(RIGHT(inc.Url, 4)) - CHARINDEX('.', RIGHT(inc.Url, 4)) ) as FTP ";
             queryString += "FROM IncidentesAdjuntos inc INNER JOIN AdjuntosClasificaciones clf ON inc.AdjuntoClasificacionId = clf.ID ";
             queryString += "WHERE inc.flgDescargado = 0 AND inc.Url IS NOT NULL";
@@ -80,26 +80,37 @@ namespace ShamanDespachoDownloadFilesWinForm
 
                     while (reader.Read())
                     {
-                        string incId = reader["id"].ToString();
-                        string urlOrigin = reader["Url"].ToString();
-                        string ftpSource = reader["FTP"].ToString();
-
-                        //urlOrigin = "https://www.marketingdirecto.com/wp-content/uploads/2019/10/logo-volkswagen.jpg";
-                        //ftpSource = @"\\archivos02\ftp paramedic\carpeta\image35.png";
-
-                        if (!Directory.Exists(Path.GetDirectoryName(ftpSource)))
+                        try
                         {
-                            Directory.CreateDirectory(Path.GetDirectoryName(ftpSource));
-                        }
+                            string incId = reader["id"].ToString();
+                            string urlOrigin = reader["Url"].ToString();
+                            string ftpSource = reader["FTP"].ToString();
 
-                        using (WebClient client = new WebClient())
-                        {
-                            client.DownloadFile(new Uri(urlOrigin), @ftpSource);
+                            addLog(true, "DownladFile variables: ", string.Format("incId: {0},urlOrigin: {1},ftpSource: {2}, ", incId, urlOrigin, ftpSource));
 
-                        }
-                        if (!updateStatus(incId, 1))
+                            //urlOrigin = "https://www.marketingdirecto.com/wp-content/uploads/2019/10/logo-volkswagen.jpg";
+                            //ftpSource = @"\\archivos02\ftp paramedic\carpeta\image35.png";
+
+                            if (!Directory.Exists(Path.GetDirectoryName(ftpSource)))
+                            {
+                                addLog(true, "DownladFile CreateDirectory: ", Path.GetDirectoryName(ftpSource));
+                                Directory.CreateDirectory(Path.GetDirectoryName(ftpSource));
+                            }
+
+                            using (WebClient client = new WebClient())
+                            {
+                                addLog(true, "DownloadFile", "pre descarga " + @ftpSource);
+                                client.DownloadFile(new Uri(urlOrigin), @ftpSource);
+                                addLog(true, "DownloadFile", "Se descargo " + @ftpSource);
+                            }
                             if (!updateStatus(incId, 1))
-                                throw new Exception("No se puede actualizar el estado de flgDescargado.");
+                                if (!updateStatus(incId, 1))
+                                    throw new Exception("No se puede actualizar el estado de flgDescargado.");
+                        }
+                        catch (Exception ex)
+                        {
+                            addLog(false, "DownloadFile -> While", ex.Message);
+                        }
                     }
                 }
                 catch (Exception ex)

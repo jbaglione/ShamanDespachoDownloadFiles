@@ -130,8 +130,8 @@ namespace ShamanDespachoDownloadFiles
                                 client.DownloadFile(new Uri(urlOrigin), @ftpSource);
                                 addLog(true, "DownloadFile", "Se descargo " + @ftpSource);
                             }
-                            if (!updateStatus(incId, 1))
-                                if (!updateStatus(incId, 1))
+                            if (!updateStatus(incId, 1, ftpSource))
+                                if (!updateStatus(incId, 1, ftpSource))
                                     throw new Exception("No se puede actualizar el estado de flgDescargado.");
                         }
                         catch (Exception ex)
@@ -152,13 +152,14 @@ namespace ShamanDespachoDownloadFiles
             }
         }
 
-        private bool updateStatus(string incId, int flgDescargado)
+        private bool updateStatus(string incId, int flgDescargado, string archivo)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(dBServer1))
                 {
-                    string queryString = "UPDATE IncidentesAdjuntos SET flgDescargado = " + flgDescargado + " WHERE id = " + incId;
+                    //string queryString = "UPDATE IncidentesAdjuntos SET flgDescargado = " + flgDescargado + " WHERE id = " + incId;
+                    string queryString = string.Format("UPDATE IncidentesAdjuntos SET flgDescargado = {0}, archivo = {1} WHERE id = {2}", flgDescargado, archivo, incId);
                     SqlCommand commandUpdate = new SqlCommand(queryString, connection);
                     connection.Open();
                     bool result = Convert.ToBoolean(commandUpdate.ExecuteNonQuery());

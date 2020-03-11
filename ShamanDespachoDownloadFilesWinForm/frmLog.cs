@@ -70,14 +70,15 @@ namespace ShamanDespachoDownloadFilesWinForm
             queryString += "FROM IncidentesAdjuntos inc INNER JOIN AdjuntosClasificaciones clf ON inc.AdjuntoClasificacionId = clf.ID ";
             queryString += "WHERE inc.flgDescargado = 0 AND inc.Url IS NOT NULL";
 
+            //addLog(true, "DownladFile 1-queryString: ", queryString);
             using (SqlConnection connection = new SqlConnection(dBServer1))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
+                addLog(true, "DownladFile connection.Open(): ", "OK");
                 SqlDataReader reader = command.ExecuteReader();
                 try
                 {
-
                     while (reader.Read())
                     {
                         try
@@ -103,8 +104,8 @@ namespace ShamanDespachoDownloadFilesWinForm
                                 client.DownloadFile(new Uri(urlOrigin), @ftpSource);
                                 addLog(true, "DownloadFile", "Se descargo " + @ftpSource);
                             }
-                            if (!updateStatus(incId, 1))
-                                if (!updateStatus(incId, 1))
+                            if (!updateStatus(incId, 1, ftpSource))
+                                if (!updateStatus(incId, 1, ftpSource))
                                     throw new Exception("No se puede actualizar el estado de flgDescargado.");
                         }
                         catch (Exception ex)
@@ -125,16 +126,28 @@ namespace ShamanDespachoDownloadFilesWinForm
             }
         }
 
-        private bool updateStatus(string incId, int flgDescargado)
+        private bool updateStatus(string incId, int flgDescargado, string archivo)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(dBServer1))
                 {
-                    string queryString = "UPDATE IncidentesAdjuntos SET flgDescargado = " + flgDescargado + " WHERE id = " + incId;
+                    //string queryString = "UPDATE IncidentesAdjuntos SET flgDescargado = " + flgDescargado + " WHERE id = " + incId;
+                    string queryString = string.Format("UPDATE IncidentesAdjuntos SET flgDescargado = {0}, archivo = {1} WHERE id = {2}", flgDescargado, archivo, incId);
                     SqlCommand commandUpdate = new SqlCommand(queryString, connection);
                     connection.Open();
-                    return Convert.ToBoolean(commandUpdate.ExecuteNonQuery());
+                    bool result = Convert.ToBoolean(commandUpdate.ExecuteNonQuery());
+                    if (result)
+                    {
+                        addLog(true, "updateStatus", "Se actualizo el estado a " + flgDescargado);
+                        return true;
+                    }
+                    else
+                    {
+                        addLog(false, "updateStatus", "No se pudo actualizar el estado a " + flgDescargado);
+                        return false;
+                    }
+
                 }
             }
             catch (Exception ex)

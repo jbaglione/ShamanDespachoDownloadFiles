@@ -159,7 +159,7 @@ namespace ShamanDespachoDownloadFiles
                 using (SqlConnection connection = new SqlConnection(dBServer1))
                 {
                     //string queryString = "UPDATE IncidentesAdjuntos SET flgDescargado = " + flgDescargado + " WHERE id = " + incId;
-                    string queryString = string.Format("UPDATE IncidentesAdjuntos SET flgDescargado = {0}, archivo = {1} WHERE id = {2}", flgDescargado, archivo, incId);
+                    string queryString = string.Format("UPDATE IncidentesAdjuntos SET flgDescargado = {0}, archivo = '{1}' WHERE id = {2}", flgDescargado, archivo, incId);
                     SqlCommand commandUpdate = new SqlCommand(queryString, connection);
                     connection.Open();
                     bool result = Convert.ToBoolean(commandUpdate.ExecuteNonQuery());

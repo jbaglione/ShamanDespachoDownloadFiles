@@ -1,0 +1,1 @@
+Servicio de windows que conecta a SQL de ShamanExpress y descarga los archivos que ShamanAndroidDespacho(Android) sube a Azure y los guarda en una carpeta especifica.

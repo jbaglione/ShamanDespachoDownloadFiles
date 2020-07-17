@@ -65,10 +65,15 @@ namespace ShamanDespachoDownloadFilesWinForm
 
         public void DownladFile()
         {
-            string queryString = "SELECT inc.id, inc.Url, clf.RutaRemota + '\\' + CAST(inc.IncidenteId as varchar) + '_' + cast(inc.ID as varchar) + '.' + ";
-            queryString += "SUBSTRING( RIGHT(inc.Url, 4), CHARINDEX('.', RIGHT(inc.Url, 4)) + 1, LEN(RIGHT(inc.Url, 4)) - CHARINDEX('.', RIGHT(inc.Url, 4)) ) as FTP ";
-            queryString += "FROM IncidentesAdjuntos inc INNER JOIN AdjuntosClasificaciones clf ON inc.AdjuntoClasificacionId = clf.ID ";
-            queryString += "WHERE inc.flgDescargado = 0 AND inc.Url IS NOT NULL";
+            string queryString = "SELECT inc.id, inc.Url, ";
+            queryString += "clf.RutaRemota + '\' + CAST(YEAR(cab.FecIncidente) AS VARCHAR) + RIGHT('0000' + CAST(MONTH(cab.FecIncidente) as varchar), 2) + ";
+            queryString += "RIGHT('0000' + CAST(DAY(cab.FecIncidente) as varchar), 2) + '\' + CAST(inc.IncidenteId as varchar) + '_' + cast(inc.ID as varchar) + ";
+            queryString += "'.' + SUBSTRING( RIGHT(inc.Url, 4), CHARINDEX('.', RIGHT(inc.Url, 4)) + 1, LEN(RIGHT(inc.Url, 4)) - CHARINDEX('.', RIGHT(inc.Url, 4)) ) AS FTP ";
+            queryString += "FROM IncidentesAdjuntos inc ";
+            queryString += "INNER JOIN AdjuntosClasificaciones clf ON inc.AdjuntoClasificacionId = clf.ID ";
+            queryString += "INNER JOIN Incidentes cab ON inc.IncidenteId = cab.ID ";
+            queryString += "WHERE inc.flgDescargado = 0 ";
+            queryString += "AND inc.Url IS NOT NULL ";
 
             //addLog(true, "DownladFile 1-queryString: ", queryString);
             using (SqlConnection connection = new SqlConnection(dBServer1))
